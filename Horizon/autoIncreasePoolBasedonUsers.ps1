@@ -43,7 +43,7 @@ $scriptBlock = {
     Set-Variable powercli_product_name "VI Toolkit / VSphere PowerCLI" -scope Private
 
     # Load View Snapin
-    $ViewSnapinLoaded = Get-PSSnapin | Where { $_.Name -eq $view_snapin_name }
+    $ViewSnapinLoaded = Get-PSSnapin | Where-Object { $_.Name -eq $view_snapin_name }
     if(!$ViewSnapinLoaded){
 
         write-host "Loading $product_name"
@@ -67,11 +67,11 @@ $scriptBlock = {
     }
 
     # Load VI Toolkit/PowerCLI if available
-    $VimAutomationInstalled = Get-PSSnapin -Registered | Where { $_.Name -eq $powercli_snapin_name }
+    $VimAutomationInstalled = Get-PSSnapin -Registered | Where-Object { $_.Name -eq $powercli_snapin_name }
 
     if($VimAutomationInstalled){
 
-        $VimAutomationLoaded = Get-PSSnapin | Where { $_.Name -eq $powercli_snapin_name }
+        $VimAutomationLoaded = Get-PSSnapin | Where-Object { $_.Name -eq $powercli_snapin_name }
 
     if(!$VimAutomationLoaded){
 
@@ -119,11 +119,11 @@ foreach($pool in $pools){
     $entitledusers = $null
 
     #Counts the number of users in the AD group that is entitled to the pool
-    $userGroupCheck =  ($PoolEntitlments | foreach {Get-ADObject $_})
+    $userGroupCheck =  ($PoolEntitlments | foreach-object {Get-ADObject $_})
 
-    $poolUsers = @($userGroupCheck |   where {$_.objectclass -eq 'user'}).Count
+    $poolUsers = @($userGroupCheck |   Where-Object {$_.objectclass -eq 'user'}).Count
 
-    $poolGroups =  @($userGroupCheck |   where {$_.objectclass -eq 'group'}).Count
+    $poolGroups =  @($userGroupCheck |   Where-Object {$_.objectclass -eq 'group'}).Count
 
     $entitledusers = $poolUsers + $poolGroups
 
