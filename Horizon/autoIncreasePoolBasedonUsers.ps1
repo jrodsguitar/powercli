@@ -15,7 +15,7 @@ $machineBuffer = 1
 
 #If totla machines to add is greater or equal to 50 don't do it. This is a precautionary measure in case someone adds too many users to the entitled AD group.
 $threshold = 2
-############################################################################################################
+###########################################################################################################
 
 if($cred -eq $null){
 
